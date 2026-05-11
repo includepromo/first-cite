@@ -1,13 +1,11 @@
 // ===================== НАСТРОЙКИ =====================
-const COUNT = 150;
-const RADIUS = 10;
+const COUNT = 40;
+const RADIUS = 5;
 const COLOR = '#3b536b';
 const GLOW_COLOR = '#8ab3cf';
 const GLOW_DIST = 60;
 const WEB_COLOR = 'rgba(74, 98, 116, 0.12)';
 
-const ESCAPE_DIST = 100;
-const REPEL_FORCE = 1.5;
 const REPEL_RADIUS = 25;
 const REPEL_POWER = 0.5;
 const SPIDER_WEB_DIST = 80;
@@ -80,21 +78,18 @@ function updatePhysics() {
   const w = canvas.width;
   const h = canvas.height;
   for (const c of circles) {
+    // хаотичное блуждание
     c.vx += (Math.random() - 0.5) * WANDER_FORCE;
     c.vy += (Math.random() - 0.5) * WANDER_FORCE;
+    // трение
     c.vx *= FRICTION;
     c.vy *= FRICTION;
-    const dx = c.x - mouseX;
-    const dy = c.y - mouseY;
-    const distToMouse = Math.sqrt(dx * dx + dy * dy);
-    if (distToMouse < ESCAPE_DIST && distToMouse > 0.1) {
-      const angle = Math.atan2(dy, dx);
-      const force = (ESCAPE_DIST - distToMouse) / ESCAPE_DIST * REPEL_FORCE;
-      c.vx += Math.cos(angle) * force;
-      c.vy += Math.sin(angle) * force;
-    }
+
+    // движение
     c.x += c.vx;
     c.y += c.vy;
+
+    // границы с мягким отскоком
     if (c.x < c.radius) { c.x = c.radius; c.vx *= -0.6; }
     else if (c.x > w - c.radius) { c.x = w - c.radius; c.vx *= -0.6; }
     if (c.y < c.radius) { c.y = c.radius; c.vy *= -0.6; }
@@ -102,7 +97,7 @@ function updatePhysics() {
   }
 }
 
-// ===================== ОТРИСОВКА =====================
+// ===================== ОТРИСОВКА СО СВЕЧЕНИЕМ =====================
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -125,7 +120,7 @@ function draw() {
   }
   ctx.stroke();
 
-  // кружочки со свечением
+  // кружочки со свечением возле мыши
   for (const c of circles) {
     const dx = c.x - mouseX;
     const dy = c.y - mouseY;
