@@ -1,21 +1,20 @@
-// ui.js — кнопка «My May» на главной странице
-
 const btn = document.createElement('button');
 btn.textContent = 'My May';
 Object.assign(btn.style, {
   position: 'fixed',
-  top: '24px',
-  right: '24px',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',   // идеальный центр
   zIndex: '20',
   background: 'rgba(30, 45, 61, 0.85)',
   border: '1px solid #4a6274',
   color: '#c8d9e6',
-  padding: '10px 28px',
-  borderRadius: '14px',
+  padding: '12px 36px',
+  borderRadius: '16px',
   fontFamily: '"Courier New", monospace',
-  fontSize: '1.2rem',
+  fontSize: '1.5rem',
   fontWeight: 'bold',
-  letterSpacing: '0.1rem',
+  letterSpacing: '0.15rem',
   cursor: 'pointer',
   backdropFilter: 'blur(4px)',
   transition: 'background 0.3s, box-shadow 0.3s',
@@ -23,7 +22,7 @@ Object.assign(btn.style, {
 
 btn.addEventListener('mouseenter', () => {
   btn.style.background = 'rgba(59, 83, 107, 0.9)';
-  btn.style.boxShadow = '0 0 12px rgba(139, 179, 207, 0.4)';
+  btn.style.boxShadow = '0 0 16px rgba(139, 179, 207, 0.5)';
 });
 btn.addEventListener('mouseleave', () => {
   btn.style.background = 'rgba(30, 45, 61, 0.85)';
