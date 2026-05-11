@@ -1,0 +1,25 @@
+/* тёмный фон */
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  background: radial-gradient(ellipse at center, #1e2d3d 0%, #0c141c 100%);
+}
+
+#text-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Courier New', monospace;
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: bold;
+  color: #c8d9e6;
+  text-shadow: 0 0 20px rgba(200, 220, 240, 0.4);
+  letter-spacing: 0.3rem;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.9;
+  text-align: center;
+}
