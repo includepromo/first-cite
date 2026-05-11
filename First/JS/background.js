@@ -1,12 +1,12 @@
 // ===================== НАСТРОЙКИ =====================
-const COUNT = 100;
+const COUNT = 150;
 const RADIUS = 10;
 const COLOR = '#3b536b';
-const GLOW_COLOR = '#8ab3cf';   // цвет свечения
-const GLOW_DIST = 200;           // дистанция, с которой начинается свечение
+const GLOW_COLOR = '#8ab3cf';
+const GLOW_DIST = 60;
 const WEB_COLOR = 'rgba(74, 98, 116, 0.12)';
 
-const ESCAPE_DIST = 60;
+const ESCAPE_DIST = 100;
 const REPEL_FORCE = 1.5;
 const REPEL_RADIUS = 25;
 const REPEL_POWER = 0.5;
@@ -22,11 +22,11 @@ let canvas, ctx;
 function setup() {
   canvas = document.createElement('canvas');
   ctx = canvas.getContext('2d');
-  canvas.style.position = 'absolute';
+  canvas.style.position = 'fixed';
   canvas.style.top = '0';
   canvas.style.left = '0';
   canvas.style.zIndex = '1';
-  document.body.appendChild(canvas);
+  document.body.prepend(canvas);
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
@@ -45,51 +45,12 @@ function setup() {
     mouseY = e.clientY;
   });
 
-  createButton();
   requestAnimationFrame(update);
 }
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-}
-
-// ===================== КНОПКА =====================
-function createButton() {
-  const btn = document.createElement('button');
-  btn.textContent = 'My May';
-  Object.assign(btn.style, {
-    position: 'fixed',
-    top: '24px',
-    right: '24px',
-    zIndex: '20',
-    background: 'rgba(30, 45, 61, 0.85)',
-    border: '1px solid #4a6274',
-    color: '#c8d9e6',
-    padding: '10px 28px',
-    borderRadius: '14px',
-    fontFamily: '"Courier New", monospace',
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
-    letterSpacing: '0.1rem',
-    cursor: 'pointer',
-    backdropFilter: 'blur(4px)',
-    transition: 'background 0.3s, box-shadow 0.3s',
-  });
-
-  btn.addEventListener('mouseenter', () => {
-    btn.style.background = 'rgba(59, 83, 107, 0.9)';
-    btn.style.boxShadow = '0 0 12px rgba(139, 179, 207, 0.4)';
-  });
-  btn.addEventListener('mouseleave', () => {
-    btn.style.background = 'rgba(30, 45, 61, 0.85)';
-    btn.style.boxShadow = 'none';
-  });
-  btn.addEventListener('click', () => {
-    window.location.href = 'gallery.html';
-  });
-
-  document.body.appendChild(btn);
 }
 
 // ===================== ФИЗИКА =====================
@@ -141,11 +102,11 @@ function updatePhysics() {
   }
 }
 
-// ===================== ОТРИСОВКА СО СВЕЧЕНИЕМ =====================
+// ===================== ОТРИСОВКА =====================
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Паутина
+  // паутина
   ctx.beginPath();
   ctx.strokeStyle = WEB_COLOR;
   ctx.lineWidth = 0.8;
@@ -164,6 +125,7 @@ function draw() {
   }
   ctx.stroke();
 
+  // кружочки со свечением
   for (const c of circles) {
     const dx = c.x - mouseX;
     const dy = c.y - mouseY;
@@ -172,12 +134,10 @@ function draw() {
 
     ctx.beginPath();
     ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
-
     if (intensity > 0) {
-      // Лёгкое свечение
       ctx.shadowColor = GLOW_COLOR;
       ctx.shadowBlur = 6 * intensity;
-      ctx.fillStyle = GLOW_COLOR;    // чуть ярче
+      ctx.fillStyle = GLOW_COLOR;
     } else {
       ctx.shadowColor = 'transparent';
       ctx.shadowBlur = 0;
@@ -185,7 +145,6 @@ function draw() {
     }
     ctx.fill();
   }
-  // Сброс тени на всякий случай
   ctx.shadowColor = 'transparent';
   ctx.shadowBlur = 0;
 }
