@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  const targetString = 'Hello World';
+  const targetString = 'IcnludePromo';
   const scrambleChars = 'ꘀꘁꘂꘃꘄꘅꘆꘇꘈꘉꘊꘋꘌ꘍꘎꘏こんにちは世界你好世界안녕하세요세계';
   const totalIterations = 12;
   const revealSpeed = 80;
