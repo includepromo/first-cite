@@ -1,53 +1,50 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('text-container');
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("text-effect.js запущен");
+
+  const container = document.getElementById("text-container");
   if (!container) {
-    console.error('Элемент #text-container не найден!');
+    console.error("❌ Контейнер #text-container не найден в DOM!");
     return;
   }
+  console.log("✅ Контейнер найден:", container);
 
-  const targetString = 'IcnludePromo';
-  const scrambleChars = 'ꘀꘁꘂꘃꘄꘅꘆꘇꘈꘉꘊꘋꘌ꘍꘎꘏こんにちは世界你好世界안녕하세요세계';
+  const target = "Hello World";
+  const chars = "ꘀꘁꘂꘃこんにちは世界안녕하세요세계";
   const totalIterations = 12;
   const revealSpeed = 80;
   const scrambleSpeed = 50;
 
-  function getRandomChar() {
-    return scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-  }
+  const getRand = () => chars[Math.floor(Math.random() * chars.length)];
 
-  function startAnimation() {
-    const length = targetString.length;
-    let currentString = Array.from({ length }, () => getRandomChar());
-    const locked = Array(length).fill(false);
-    container.textContent = currentString.join('');
+  const current = Array.from({ length: target.length }, getRand);
+  const locked = Array(target.length).fill(false);
+  container.textContent = current.join("");
+  console.log("Начальная строка:", current.join(""));
 
-    const scrambleInterval = setInterval(() => {
-      for (let i = 0; i < length; i++) {
-        if (!locked[i]) {
-          currentString[i] = getRandomChar();
-        }
-      }
-      container.textContent = currentString.join('');
-    }, scrambleSpeed);
+  const scrambleInterval = setInterval(() => {
+    for (let i = 0; i < target.length; i++) {
+      if (!locked[i]) current[i] = getRand();
+    }
+    container.textContent = current.join("");
+  }, scrambleSpeed);
 
-    let revealIndex = 0;
-    const revealInterval = setInterval(() => {
-      if (revealIndex >= length) {
-        clearInterval(revealInterval);
-        clearInterval(scrambleInterval);
-        container.textContent = targetString;
-        return;
-      }
-      locked[revealIndex] = true;
-      currentString[revealIndex] = targetString[revealIndex];
-      container.textContent = currentString.join('');
-      revealIndex++;
-    }, revealSpeed);
-
-    setTimeout(() => {
+  let idx = 0;
+  const revealInterval = setInterval(() => {
+    if (idx >= target.length) {
+      clearInterval(revealInterval);
       clearInterval(scrambleInterval);
-    }, totalIterations * scrambleSpeed);
-  }
+      container.textContent = target;
+      console.log("Анимация завершена");
+      return;
+    }
+    locked[idx] = true;
+    current[idx] = target[idx];
+    container.textContent = current.join("");
+    idx++;
+  }, revealSpeed);
 
-  setTimeout(startAnimation, 500);
+  setTimeout(() => {
+    clearInterval(scrambleInterval);
+    console.log("scrambleInterval остановлен по таймауту");
+  }, totalIterations * scrambleSpeed);
 });

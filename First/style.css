@@ -1,4 +1,4 @@
-/* тёмный фон */
+/* Глубокий тёмный фон */
 body {
   margin: 0;
   overflow: hidden;
@@ -6,6 +6,7 @@ body {
   background: radial-gradient(ellipse at center, #1e2d3d 0%, #0c141c 100%);
 }
 
+/* Текст всегда по центру */
 #text-container {
   position: fixed;
   top: 50%;
@@ -20,6 +21,5 @@ body {
   white-space: nowrap;
   pointer-events: none;
   z-index: 10;
-  opacity: 0.9;
   text-align: center;
 }
