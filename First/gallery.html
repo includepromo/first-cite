@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>My May</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at center, #1e2d3d 0%, #0c141c 100%);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #c8d9e6;
+      font-family: 'Courier New', monospace;
+      gap: 40px;
+      overflow: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 15px rgba(139, 179, 207, 0.4);
+      margin: 0;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: rgba(30, 45, 61, 0.7);
+      border-radius: 18px;
+      padding: 12px;
+      backdrop-filter: blur(10px);
+      border: 1px solid #4a6274;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 25px rgba(139, 179, 207, 0.3);
+    }
+
+    .card img {
+      display: block;
+      width: 320px;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .back-btn {
+      background: rgba(30, 45, 61, 0.85);
+      border: 1px solid #4a6274;
+      color: #c8d9e6;
+      padding: 10px 28px;
+      border-radius: 14px;
+      font-family: "Courier New", monospace;
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 0.1rem;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .back-btn:hover {
+      background: rgba(59, 83, 107, 0.9);
+      box-shadow: 0 0 12px rgba(139, 179, 207, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <h1>🔥</h1>
+  <div class="gallery">
+    <div class="card"><img src="Photo/photo_1.jpg" alt="Шашлык 1"></div>
+    <div class="card"><img src="Photo/photo_2.jpg" alt="Шашлык 2"></div>
+    <div class="card"><img src="Photo/photo_3.jpg" alt="Шашлык 3"></div>
+  </div>
+  <button class="back-btn" onclick="window.location.href='index.html'">← Назад</button>
+</body>
+</html>
